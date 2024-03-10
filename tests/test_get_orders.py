@@ -2,6 +2,7 @@ import requests
 import allure
 from data import AdditionalVariables
 
+
 class TestGetOrders:
 
     @allure.title("Проверка, что в тело ответа возвращается список всех заказов")

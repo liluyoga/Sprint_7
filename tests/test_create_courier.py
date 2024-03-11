@@ -20,7 +20,7 @@ class TestCreateCourier:
         headers = {"Content-type": "application/json"}
         requests.post(f'{AdditionalVariables.URL}/api/v1/courier', headers=headers, data=payload)
         response = requests.post(f'{AdditionalVariables.URL}/api/v1/courier', headers=headers, data=payload)
-        assert response.status_code == 409 and 'Этот логин уже используется' in response.json()["message"]
+        assert response.status_code == 409 and AdditionalVariables.CREATE_COURIER_CONFLICT_MESSAGE in response.json()["message"]
 
     @allure.title("Проверка, что для создания курьера нужно передать обязательные поля login и password")
     @pytest.mark.parametrize("courier_data",
@@ -34,4 +34,4 @@ class TestCreateCourier:
         headers = {"Content-type": "application/json"}
         response = requests.post(f'{AdditionalVariables.URL}/api/v1/courier', headers=headers, data=payload)
         assert response.status_code == 400 and response.json()[
-            "message"] == 'Недостаточно данных для создания учетной записи'
+            "message"] == AdditionalVariables.CREATE_COURIER_BAD_REQUEST_MESSAGE

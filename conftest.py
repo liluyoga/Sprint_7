@@ -5,12 +5,14 @@ import pytest
 from data import AdditionalVariables
 
 
+def generate_random_string(length):
+    letters = string.ascii_lowercase
+    random_string = ''.join(random.choice(letters) for i in range(length))
+    return random_string
+
+
 @pytest.fixture(scope='function')
 def generate_new_courier_login_password():
-    def generate_random_string(length):
-        letters = string.ascii_lowercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
-        return random_string
 
     login_pass = {}
 
@@ -36,10 +38,6 @@ def generate_new_courier_login_password():
 
 @pytest.fixture(scope='function')
 def register_new_courier_and_return_login_password():
-    def generate_random_string(length):
-        letters = string.ascii_lowercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
-        return random_string
 
     login_pass = []
 

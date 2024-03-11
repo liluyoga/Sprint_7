@@ -1,24 +1,31 @@
 import random
 import string
+import datetime
 
 
 class AdditionalVariables:
     URL = 'https://qa-scooter.praktikum-services.ru'
+    LOGIN_BAD_REQUEST_MESSAGE = 'Недостаточно данных для входа'
+    LOGIN_NOT_FOUND_MESSAGE = 'Учетная запись не найдена'
+    CREATE_COURIER_CONFLICT_MESSAGE = 'Этот логин уже используется'
+    CREATE_COURIER_BAD_REQUEST_MESSAGE = 'Недостаточно данных для создания учетной записи'
 
 
 class NewCourierData:
 
     @staticmethod
+    def generate_random_string(length):
+        letters = string.ascii_lowercase
+        random_string = ''.join(random.choice(letters) for i in range(length))
+        return random_string
+
+    @staticmethod
     def new_courier_data_without_login():
-        def generate_random_string(length):
-            letters = string.ascii_lowercase
-            random_string = ''.join(random.choice(letters) for i in range(length))
-            return random_string
 
         pass_first_name = {}
 
-        password = generate_random_string(10)
-        first_name = generate_random_string(10)
+        password = NewCourierData.generate_random_string(10)
+        first_name = NewCourierData.generate_random_string(10)
 
         pass_first_name["password"] = password
         pass_first_name["first_name"] = first_name
@@ -27,15 +34,11 @@ class NewCourierData:
 
     @staticmethod
     def new_courier_data_without_password():
-        def generate_random_string(length):
-            letters = string.ascii_lowercase
-            random_string = ''.join(random.choice(letters) for i in range(length))
-            return random_string
 
         login_first_name = {}
 
-        login = generate_random_string(10)
-        first_name = generate_random_string(10)
+        login = NewCourierData.generate_random_string(10)
+        first_name = NewCourierData.generate_random_string(10)
 
         login_first_name["login"] = login
         login_first_name["first_name"] = first_name
@@ -44,6 +47,13 @@ class NewCourierData:
 
 
 class OrderData:
+
+    @staticmethod
+    def generate_delivery_date():
+        date = datetime.datetime.today() + datetime.timedelta(days=1)
+        date = date.strftime("%Y-%m-%d")
+        return date
+
     order_data_1 = {
         "firstName": "Йода",
         "lastname": "Джедай",
@@ -51,7 +61,7 @@ class OrderData:
         "metroStation": 3,
         "phone": "+79991123344",
         "rentTime": 2,
-        "deliveryDate": "2024-03-25",
+        "deliveryDate": generate_delivery_date(),
         "comment": "Терпение необходимо во всем, что вы делаете",
         "color": [
             "BLACK"
@@ -65,7 +75,7 @@ class OrderData:
         "metroStation": 3,
         "phone": "+79991123344",
         "rentTime": 2,
-        "deliveryDate": "2024-03-25",
+        "deliveryDate": generate_delivery_date(),
         "comment": "Терпение необходимо во всем, что вы делаете",
         "color": [
             "GREY"
@@ -79,7 +89,7 @@ class OrderData:
         "metroStation": 3,
         "phone": "+79991123344",
         "rentTime": 2,
-        "deliveryDate": "2024-03-25",
+        "deliveryDate": generate_delivery_date(),
         "comment": "Терпение необходимо во всем, что вы делаете",
         "color": [
             "BLACK",
@@ -94,7 +104,7 @@ class OrderData:
         "metroStation": 3,
         "phone": "+79991123344",
         "rentTime": 2,
-        "deliveryDate": "2024-03-25",
+        "deliveryDate": generate_delivery_date(),
         "comment": "Терпение необходимо во всем, что вы делаете",
         "color": []
     }

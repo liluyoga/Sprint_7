@@ -21,7 +21,7 @@ class TestLoginCourier:
         headers = {"Content-type": "application/json"}
         response = requests.post(f'{AdditionalVariables.URL}/api/v1/courier/login', headers=headers,
                                  data=json.dumps(payload))
-        assert response.status_code == 400 and response.json()["message"] == 'Недостаточно данных для входа'
+        assert response.status_code == 400 and response.json()["message"] == AdditionalVariables.LOGIN_BAD_REQUEST_MESSAGE
 
     @allure.title("Проверка, что для авторизации нужно передать обязательное поле password")
     def test_login_courier_without_password_bad_request(self, register_new_courier_and_return_login_password):
@@ -29,7 +29,7 @@ class TestLoginCourier:
         headers = {"Content-type": "application/json"}
         response = requests.post(f'{AdditionalVariables.URL}/api/v1/courier/login', headers=headers,
                                  data=json.dumps(payload))
-        assert response.status_code == 400 and response.json()["message"] == 'Недостаточно данных для входа'
+        assert response.status_code == 400 and response.json()["message"] == AdditionalVariables.LOGIN_BAD_REQUEST_MESSAGE
 
     @allure.title("Проверка ошибки при попытке авторизоваться под несуществующим пользователем (неверный login)")
     def test_login_courier_with_incorrect_login_not_found(self, register_new_courier_and_return_login_password):
@@ -39,7 +39,7 @@ class TestLoginCourier:
         headers = {"Content-type": "application/json"}
         response = requests.post(f'{AdditionalVariables.URL}/api/v1/courier/login', headers=headers,
                                  data=json.dumps(payload))
-        assert response.status_code == 404 and response.json()["message"] == 'Учетная запись не найдена'
+        assert response.status_code == 404 and response.json()["message"] == AdditionalVariables.LOGIN_NOT_FOUND_MESSAGE
 
     @allure.title("Проверка ошибки при попытке авторизоваться с неверным паролем (password)")
     def test_login_courier_with_incorrect_password_not_found(self, register_new_courier_and_return_login_password):
@@ -49,4 +49,4 @@ class TestLoginCourier:
         headers = {"Content-type": "application/json"}
         response = requests.post(f'{AdditionalVariables.URL}/api/v1/courier/login', headers=headers,
                                  data=json.dumps(payload))
-        assert response.status_code == 404 and response.json()["message"] == 'Учетная запись не найдена'
+        assert response.status_code == 404 and response.json()["message"] == AdditionalVariables.LOGIN_NOT_FOUND_MESSAGE
